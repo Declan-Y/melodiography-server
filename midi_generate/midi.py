@@ -1,5 +1,7 @@
 from midiutil import MIDIFile
 import random
+from io import BytesIO
+
 
 
 def generate_random_melody():
@@ -21,6 +23,10 @@ def generate_random_melody():
         MyMIDI.addNote(track, channel,random.choice(degrees), time, duration, volume)
         time += duration
 
+    file = BytesIO()
+    
+    MyMIDI.writeFile(file)
+    file.seek(0)
+    return file
 
-    with open("major-scale.mid", "wb") as output_file:
-        return MyMIDI.writeFile(output_file)
+
