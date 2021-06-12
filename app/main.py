@@ -3,7 +3,7 @@ from midi_generate import midi
 from fastapi.responses import StreamingResponse
 from database import SessionLocal, engine
 from sqlalchemy.orm import Session
-from . import crud, models, schemas
+import crud, schemas
 
 app = FastAPI()
 
@@ -22,5 +22,5 @@ async def generate_melody():
 
 @app.post("/save")
 async def save_drawing(drawing: schemas.CreateDrawing, db: Session = Depends(get_db)):
-    return crud.create_drawing(drawing)
+    return crud.create_drawing(db, drawing)
 
