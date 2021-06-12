@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 
-from . import models, schemas
+import models, schemas
 
 def create_drawing(db: Session, drawing: schemas.CreateDrawing):
     db_drawing = models.Drawing(title=drawing.title)
