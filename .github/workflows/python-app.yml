@@ -22,7 +22,7 @@ jobs:
         python-version: 3.9
     - name: Run local db
       run: |
-        docker compose up -d
+        docker-compose up -d
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
