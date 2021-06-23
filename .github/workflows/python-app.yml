@@ -31,3 +31,5 @@ jobs:
     - name: Test with pytest
       run: |
         pytest app/
+      env: 
+        DATABASE_URL: postgresql://postgres:postgres@localhost/postgres
