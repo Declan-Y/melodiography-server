@@ -17,8 +17,35 @@ services:
       - "8080:80"
     volumes:
       - pgadmin-data:/var/lib/pgadmin
+  
+  minio1:
+    image: minio/minio
+    env_file:
+      - database.env
+    command: server http://minio{1...2}/data{1...2}
+    volumes:
+      - data1-1:/data1
+      - data1-2:/data2
+    
+    ports: 
+      - "9001:9000"
+  
+  minio2:
+    image: minio/minio
+    env_file:
+      - database.env
+    command: server http://minio{1...2}/data{1...2}
+    volumes:
+      - data2-1:/data1
+      - data2-2:/data2   
+    ports: 
+      - "9002:9000"
 
     
 volumes:
     database-data: # named volumes can be managed easier using docker-compose
     pgadmin-data:
+    data1-1:
+    data1-2:
+    data2-1:
+    data2-2:
