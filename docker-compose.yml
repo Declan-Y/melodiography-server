@@ -21,7 +21,7 @@ services:
   minio1:
     image: minio/minio
     env_file:
-      - database.env
+      - .env
     command: server http://minio{1...2}/data{1...2}
     volumes:
       - data1-1:/data1
@@ -33,7 +33,7 @@ services:
   minio2:
     image: minio/minio
     env_file:
-      - database.env
+      - .env
     command: server http://minio{1...2}/data{1...2}
     volumes:
       - data2-1:/data1
