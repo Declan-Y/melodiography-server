@@ -34,3 +34,6 @@ jobs:
         pytest app/
       env: 
         DATABASE_URL: postgresql://postgres:postgres@localhost/postgres
+        MINIO_ROOT_USER: admin
+        MINIO_ROOT_PASSWORD: password
+        MINIO_URL: "localhost:9001"
