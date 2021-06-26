@@ -6,12 +6,11 @@ from sqlalchemy.orm import Session
 import crud, schemas
 from datetime import timedelta
 
-from minio import Minio
+from object_storage.minio_client import client
 
 app = FastAPI()
 
-client = Minio('localhost:9001',secure=False, access_key="admin", secret_key="password" )
-client.make_bucket("uploads")
+
 
 def get_db():
     db = SessionLocal()
