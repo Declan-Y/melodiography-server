@@ -14,6 +14,7 @@ iniconfig==1.1.1
 Mako==1.1.4
 MarkupSafe==2.0.1
 MIDIUtil==1.2.1
+minio==7.0.4
 packaging==20.9
 pluggy==0.13.1
 psycopg2==2.8.6
