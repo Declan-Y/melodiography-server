@@ -34,13 +34,13 @@ async def save_drawing(drawing: schemas.CreateDrawing, db: Session = Depends(get
 
 
 @app.get("/put-presigned-url")
-async def put_presigned_url():
-    url = client.presigned_put_object("uploads", "object", expires=timedelta(hours=2))
+async def put_presigned_url(bucket: str):
+    url = client.presigned_put_object(bucket, "object", expires=timedelta(hours=2))
     return url
 
 
 @app.get("/get-presigned-url")
-async def get_presigned_url():
-    url = client.presigned_get_object("uploads", "object", expires=timedelta(hours=2))
+async def get_presigned_url(bucket: str):
+    url = client.presigned_get_object(bucket, "object", expires=timedelta(hours=2))
     return url
 
