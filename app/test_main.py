@@ -3,13 +3,10 @@ import pytest
 from .main import app
 import json
 from object_storage.minio_client import client as minio_client
+from urllib.parse import urlparse, parse_qs
 
 
 client = TestClient(app)
-
-
-
-
 
 
 def test_generate():
@@ -28,7 +25,6 @@ def test_generate_content_type():
     response = client.get("/generate")
     assert response.headers['content-type'] == 'audio/midi'
 
-
 def test_save():
     response = client.post(url="/save", data=json.dumps({'title': 'hello'}))
     assert response.status_code == 200
@@ -38,14 +34,23 @@ def create_bucket():
     yield minio_client.make_bucket("test-bucket")
     minio_client.remove_bucket("test-bucket")
 
-
 def test_get_presigned_url(create_bucket):
     response = client.get("/get-presigned-url/?bucket=test-bucket")
     assert response.status_code == 200
+    url = urlparse(response.content)
+    assert parse_qs(url[4])[b"X-Amz-Expires"] == [b'7200']
 
-
+def test_get_presigned_url_expiry_time(create_bucket):
+    response = client.get("/get-presigned-url/?bucket=test-bucket")
+    url = urlparse(response.content)
+    assert parse_qs(url[4])[b"X-Amz-Expires"] == [b'7200']
 
 def test_put_presigned_url(create_bucket):
     response = client.get("/put-presigned-url/?bucket=test-bucket")
     assert response.status_code == 200
+
+def test_put_presigned_url_expiry_time(create_bucket):
+    response = client.get("/put-presigned-url/?bucket=test-bucket")
+    url = urlparse(response.content)
+    assert parse_qs(url[4])[b"X-Amz-Expires"] == [b'7200']
 
