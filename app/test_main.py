@@ -37,8 +37,7 @@ def create_bucket():
 def test_get_presigned_url(create_bucket):
     response = client.get("/get-presigned-url/?bucket=test-bucket")
     assert response.status_code == 200
-    url = urlparse(response.content)
-    assert parse_qs(url[4])[b"X-Amz-Expires"] == [b'7200']
+    
 
 def test_get_presigned_url_expiry_time(create_bucket):
     response = client.get("/get-presigned-url/?bucket=test-bucket")
