@@ -10,17 +10,12 @@ from object_storage.minio_client import client
 
 app = FastAPI()
 
-
-
 def get_db():
     db = SessionLocal()
     try:
         yield db
     finally:
         db.close()
-
-
-
 
 @app.get("/generate")
 async def generate_melody():
@@ -34,13 +29,13 @@ async def save_drawing(drawing: schemas.CreateDrawing, db: Session = Depends(get
 
 
 @app.get("/put-presigned-url")
-async def put_presigned_url(bucket: str):
-    url = client.presigned_put_object(bucket, "object", expires=timedelta(hours=2))
+async def put_presigned_url(bucket: str, object: str):
+    url = client.presigned_put_object(bucket, object, expires=timedelta(hours=2))
     return url
 
 
 @app.get("/get-presigned-url")
-async def get_presigned_url(bucket: str):
-    url = client.presigned_get_object(bucket, "object", expires=timedelta(hours=2))
+async def get_presigned_url(bucket: str, object: str):
+    url = client.presigned_get_object(bucket, object, expires=timedelta(hours=2))
     return url
 
