@@ -40,6 +40,15 @@ services:
       - data2-2:/data2   
     ports: 
       - "9002:9000"
+  
+  server:
+    build: .
+    env_file:
+      - .env
+    ports:
+      - "80:80"
+    
+
 
     
 volumes:
