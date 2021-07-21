@@ -31,3 +31,14 @@ resource "aws_s3_bucket" "c" {
     Environment = "Prod"
   }
 }
+
+resource "aws_db_instance" "default"{
+  allocated_storage    = 10
+  engine               = "postgres"
+  engine_version       = "12"
+  instance_class       = "db.t2.micro"
+  name                 = "mydb"
+  username             = var.db_username
+  password             = var.db_password
+  skip_final_snapshot  = true
+}
