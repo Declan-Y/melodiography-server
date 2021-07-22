@@ -1,0 +1,13 @@
+#production docker compose file, removes database and minio services as these are handled by AWS in production
+
+version: '3'
+
+services:
+  
+  server:
+    build: .
+    env_file:
+      - .env
+    ports:
+      - "80:80"
+    
