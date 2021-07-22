@@ -44,7 +44,7 @@ services:
   server:
     build: .
     env_file:
-      - .env
+      - database.env
     ports:
       - "80:80"
     
